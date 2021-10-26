@@ -1,9 +1,11 @@
+import CompanyExpenses from "./components/CompanyExpenses";
+import users from "./pseudo-backend/users";
+import expenses from "./pseudo-backend/expenses";
+
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        This is a header
-      </header>
+      <CompanyExpenses/>
     </div>
   );
 }
