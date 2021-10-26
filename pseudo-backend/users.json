@@ -1,0 +1,25 @@
+{
+  "users":
+  [
+    {
+      "firstName": "Ivan",
+      "lastName": "Yang",
+      "totalExpenses": 5000
+    },
+    {
+      "firstName": "Jason",
+      "lastName": "Kim",
+      "totalExpenses": 2000
+    },
+    {
+      "firstName": "Serena",
+      "lastName": "Kong",
+      "totalExpenses": 300
+    },
+    {
+      "firstName": "Ray",
+      "lastName": "Agni",
+      "totalExpenses": 10000
+    }
+  ]
+}

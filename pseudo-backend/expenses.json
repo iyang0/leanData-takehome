@@ -1,0 +1,71 @@
+{
+  "expenses":
+  [
+    {
+      "fullName": "Ivan Yang",
+      "category": "travel",
+      "description": "going to vegas",
+      "cost": 300
+    },
+    {
+      "fullName": "Ivan Yang",
+      "category": "food",
+      "description": "wagyuu dinner",
+      "cost": 1000
+    },
+    {
+      "fullName": "Ivan Yang",
+      "category": "supplies",
+      "description": "laptop",
+      "cost": 1500
+    },
+    {
+      "fullName": "Ivan Yang",
+      "category": "health",
+      "description": "medicine",
+      "cost": 400
+    },
+    {
+      "fullName": "Ray Agni",
+      "category": "travel",
+      "description": "going to London",
+      "cost": 500
+    },
+    {
+      "fullName": "Ray Agni",
+      "category": "food",
+      "description": "noodles dinner",
+      "cost": 100
+    },
+    {
+      "fullName": "Ray Agni",
+      "category": "supplies",
+      "description": "laser",
+      "cost": 5000
+    },
+    {
+      "fullName": "Ray Agni",
+      "category": "health",
+      "description": "medicine",
+      "cost": 500
+    },
+    {
+      "fullName": "Jason Kim",
+      "category": "travel",
+      "description": "going to Work",
+      "cost": 200
+    },
+    {
+      "fullName": "Jason Kim",
+      "category": "supplies",
+      "description": "monitor",
+      "cost": 1000
+    },
+    {
+      "fullName": "Serena Kong",
+      "category": "food",
+      "description": "boba",
+      "cost": 100
+    }
+  ]
+}

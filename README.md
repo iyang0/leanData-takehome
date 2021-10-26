@@ -83,7 +83,7 @@ Create a single page application containing 3 tables that allow you to input/mod
 
 ### Notes
 
-Consider the case where hundreds of thousands of user and expense data is being retrieved from the backend. Structure the page and data structure accordingly to handle large amounts of data
-You do not need to create a backend database that retains the data entered. A page refresh can clear the data. However, you should structure your data in a way that allows you to send/receive data from a backend database properly.
+- Consider the case where hundreds of thousands of user and expense data is being retrieved from the backend. Structure the page and data structure accordingly to handle large amounts of data
+- You do not need to create a backend database that retains the data entered. A page refresh can clear the data. However, you should structure your data in a way that allows you to send/receive data from a backend database properly.
 
 
