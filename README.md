@@ -39,32 +39,51 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+## Takehome instructions
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Time to complete: 24 hour after receiving this project detail
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Summary
 
-### Code Splitting
+Create a single page application containing 3 tables that allow you to input/modify users, input/modify expenses for each user, and display a summary of expenses by category. You are allowed to use any frontend framework and library to complete this assignment.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Page Setup
 
-### Analyzing the Bundle Size
+- "Users" Table columns: First Name, Last Name, Total Expenses
+- "Expense" Table columns: Full Name, Category, Description, Cost
+- "Company Expenses" table columns: Category, Total Expenses
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Required Functionality
 
-### Making a Progressive Web App
+- Add/Edit/Delete users for the User Table
+  - When adding a new user or editing an existing user:
+    - First Name and Last Name will be a standard input box
+  - Total Expenses will not be editable in any case. This will be a text field that displays the sum of expenses for this user
+  - When deleting a user, the data/information in the other 2 tables should be updated as well
+  - All row inputs must be valid before Add/Edit actions on a table row are submitted
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-### Advanced Configuration
+- Add/Edit/Delete expense entries for the Expense Table
+  - When adding/editing an expense:
+    - Full Name will be a dropdown of users available in the users table
+    - Category will be a dropdown of the following options: Food, Travel, Health, Supplies
+    - Description will be a standard text input box
+    - Cost will be a standard input box
+  - When deleting an expense, the data/information in the other 2 tables should be updated as well
+  - All row inputs must be valid before Add/Edit actions on a table row are submitted
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- Company Expenses is a read-only table and will only display the sum of each expense category
 
-### Deployment
+### Optional/Bonus Functionality
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- Add another column to the Users table that sets a total budget for a user
+  - If you try to add an expense or edit an expense that would result in the user exceeding their budget, prevent saving the expense entry and throw an error message on the page
+- Add a dropdown filter that allows you to select a specific user. This will filter all the data on the page to show only relevant information related to the selected user.
+- Add a dropdown filter that allows you to select a specific expense category. This will filter all the data on the page to show only relevant information related to the selected expense category.
 
-### `npm run build` fails to minify
+### Notes
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Consider the case where hundreds of thousands of user and expense data is being retrieved from the backend. Structure the page and data structure accordingly to handle large amounts of data
+You do not need to create a backend database that retains the data entered. A page refresh can clear the data. However, you should structure your data in a way that allows you to send/receive data from a backend database properly.
+
+
