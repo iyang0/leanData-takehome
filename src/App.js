@@ -60,13 +60,13 @@ function App() {
     users[userIdx].lastName = formData.lastName;
     setUsersTable({users});
 
-    let expenses = [...expensesTable.expenses];
-    expenses.forEach( e => {
+    let expensesNew = [...expensesTable.expenses];
+    expensesNew.forEach( e => {
       if(e.fullName === formData.user) {
         e.fullName = `${formData.firstName} ${formData.lastName}`
       }
     });
-    setExpensesTable({expenses});
+    setExpensesTable({expenses: expensesNew});
   }
 
   //delete user logic
@@ -79,24 +79,37 @@ function App() {
     users.splice(userIdx,1);
     setUsersTable({users});
     
-    let expenses = [...expensesTable.expenses];
+    let expensesNew = [...expensesTable.expenses];
     let delIdx = [];
     //I know this is horrible O(n^2) runtime, I just want this to work first
-    expenses.forEach( (e, idx) => {
+    expensesNew.forEach( (e, idx) => {
       if(e.fullName === formData.user) {
         delIdx.push(idx);
       }
     });
     for(let i = delIdx.length-1; i>=0; i--){
-      expenses.splice(delIdx[i],1);
+      expensesNew.splice(delIdx[i],1);
     }
-    setExpensesTable({expenses});
-    setCompanyExpenseTable(generateCompanyExpensesTable({expenses}));
+    setExpensesTable({expensesNew});
+    setCompanyExpenseTable(generateCompanyExpensesTable({expensesNew}));
   }
 
   //add expense logic
   async function addExpense(formData) {
-    console.log("hello")
+    let expensesNew = [...expensesTable.expenses, {...formData}];
+    setExpensesTable({expenses: expensesNew});
+    
+    let [firstName, lastName] = formData.fullName.split(" ");
+    let users = [...usersTable.users];
+    let userIdx = users.findIndex( user => (
+      user.firstName === firstName && user.lastName === lastName
+      ));
+    users[userIdx] = {
+      firstName, 
+      lastName, 
+      totalExpenses: (users[userIdx].totalExpenses+formData.cost)}
+    setUsersTable({users});
+    setCompanyExpenseTable(generateCompanyExpensesTable({expenses: expensesNew}));
   }
   
   return (

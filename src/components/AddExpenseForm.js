@@ -21,7 +21,7 @@ function AddExpenseForm({addExpense, users}){
   const history = useHistory();
   const categories = ["food", "travel", "health", "supplies"];
   const [form, setForm] = useState({
-    "fullName": users[0].firstName,
+    "fullName": `${users[0].firstName} ${users[0].lastName}`,
     "category": categories[0],
     "description": "",
     "cost": 0
@@ -29,10 +29,17 @@ function AddExpenseForm({addExpense, users}){
 
   const handleChange = evt => {
     const { name, value } = evt.target;
-    setForm(f => ({
-      ...f,
-      [name]: value
-    }));
+    if(name==="cost"){
+      setForm(f => ({
+        ...f,
+        [name]: Number(value)
+      }));
+    } else {
+      setForm(f => ({
+        ...f,
+        [name]: value
+      }));
+    }
   }
 
   const handleSubmit = evt => {
