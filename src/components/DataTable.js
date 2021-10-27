@@ -1,3 +1,5 @@
+import React from "react";
+import { Table } from "reactstrap";
 /**
  * Data Table: Component to display a table of given information
  * 
@@ -10,10 +12,11 @@
 */
 function DataTable({table}){
   const tableName = Object.keys(table)[0];
-  const columnNames = Object.keys(table[tableName][0]);
   const rows = table[tableName];
+  const columnNames = Object.keys(rows[0]);
+
   return (
-      <table className="table">
+      <Table>
         <thead>
           <tr>
             {
@@ -30,15 +33,17 @@ function DataTable({table}){
             rows.map( (row, idx) => (
               <tr key={`${tableName}-${idx}`}>
                 {
-                  Object.keys(row).map( e => <td key={`${tableName}-${idx}-${e}`}>
-                    {row[e]}
-                  </td>)
+                  Object.keys(row).map( e => (
+                    <td key={`${tableName}-${idx}-${e}`}>
+                      {row[e]}
+                    </td>
+                  ))
                 }
               </tr>
             ))
           }
         </tbody>
-      </table>
+      </Table>
   )
 }
 

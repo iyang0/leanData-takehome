@@ -3,23 +3,19 @@
   [
     {
       "firstName": "Ivan",
-      "lastName": "Yang",
-      "totalExpenses": 5000
+      "lastName": "Yang"
     },
     {
       "firstName": "Jason",
-      "lastName": "Kim",
-      "totalExpenses": 2000
+      "lastName": "Kim"
     },
     {
       "firstName": "Serena",
-      "lastName": "Kong",
-      "totalExpenses": 300
+      "lastName": "Kong"
     },
     {
       "firstName": "Ray",
-      "lastName": "Agni",
-      "totalExpenses": 10000
+      "lastName": "Agni"
     }
   ]
 }
