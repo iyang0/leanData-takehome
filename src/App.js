@@ -7,6 +7,7 @@ import AddUserForm from "./components/AddUserForm";
 import EditUserForm from "./components/EditUserForm";
 import DeleteUserForm from "./components/DeleteUserForm";
 import AddExpenseForm from "./components/AddExpenseForm";
+import EditExpenseForm from "./components/EditExpenseForm";
 import DeleteExpenseForm from "./components/DeleteExpenseForm";
 import generateCompanyExpensesTable from "./helpers/generateCompanyExpensesTable";
 import generateUsersTable from "./helpers/generateUsersTable";
@@ -117,6 +118,11 @@ function App() {
     setCompanyExpenseTable(generateCompanyExpensesTable({expenses}));
   }
 
+  //edit expense logic
+  async function editExpense(formData) {
+    console.log("hello")
+  }
+
   //delete expense logic
   async function deleteExpense(formData) {
     const expenseIdx = formData.expenseIdx;
@@ -158,6 +164,13 @@ function App() {
 
           <Route path="/addExpense">
             <AddExpenseForm addExpense={addExpense} users={usersTable.users} />
+          </Route>
+
+          <Route path="/editExpense">
+            <EditExpenseForm 
+              editExpense={editExpense} 
+              expenses={expensesTable.expenses} 
+              users={usersTable.users} />
           </Route>
           
           <Route path="/deleteExpense">
