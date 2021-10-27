@@ -1,27 +1,44 @@
-function DataTable(){
+/**
+ * Data Table: Component to display a table of given information
+ * 
+ * props: 
+ * - table: array of objects for a table
+ * {
+ *  tableName:
+ *    [{col1: data1, col2: data2, ...}, ...]
+ * }
+*/
+function DataTable({table}){
+  const tableName = Object.keys(table)[0];
+  const columnNames = Object.keys(table[tableName][0]);
+  const rows = table[tableName];
   return (
-    <table className="table">
-      <thead>
-        <tr>
-          <th>
-            col1
-          </th>
-          <th>
-            col2
-          </th>
-          <th>
-            col3
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>2</td>
-          <td>3</td>
-        </tr>
-      </tbody>
-    </table>
+      <table className="table">
+        <thead>
+          <tr>
+            {
+              columnNames.map( column => (
+                <th key={`${tableName}-${column}`}>
+                  {column}
+                </th>
+              ))
+            }
+          </tr>
+        </thead>
+        <tbody>
+          {
+            rows.map( (row, idx) => (
+              <tr key={`${tableName}-${idx}`}>
+                {
+                  Object.keys(row).map( e => <td key={`${tableName}-${idx}-${e}`}>
+                    {row[e]}
+                  </td>)
+                }
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
   )
 }
 
