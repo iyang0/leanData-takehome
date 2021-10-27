@@ -20,7 +20,9 @@ import generateUsersTable from "./helpers/generateUsersTable";
 */
 function App() {
   const companyName="Company XYZ";
-  const [companyExpenseTable, setCompanyExpenseTable] = useState(generateCompanyExpensesTable());
+  const [companyExpenseTable, setCompanyExpenseTable] = useState(
+    generateCompanyExpensesTable(expenses)
+  );
   const [usersTable, setUsersTable] = useState(generateUsersTable());
   const [expensesTable, setExpensesTable] = useState(expenses);
   const [tableData, setTableData] = useState([
@@ -68,7 +70,27 @@ function App() {
 
   //delete user logic
   async function deleteUser(formData) {
-    console.log("in delete user");
+    let [firstName, lastName] = formData.user.split(" ");
+    let users = [...usersTable.users];
+    let userIdx = users.findIndex( user => (
+      user.firstName === firstName && user.lastName === lastName
+      ));
+    users.splice(userIdx,1);
+    setUsersTable({users});
+    
+    let expenses = [...expensesTable.expenses];
+    let delIdx = [];
+    //I know this is horrible O(n^2) runtime, I just want this to work first
+    expenses.forEach( (e, idx) => {
+      if(e.fullName === formData.user) {
+        delIdx.push(idx);
+      }
+    });
+    for(let i = delIdx.length-1; i>=0; i--){
+      expenses.splice(delIdx[i],1);
+    }
+    setExpensesTable({expenses});
+    setCompanyExpenseTable(generateCompanyExpensesTable({expenses}));
   }
   
   return (

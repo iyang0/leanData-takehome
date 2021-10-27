@@ -1,9 +1,20 @@
-import expenses from "../pseudo-backend/expenses";
-
 /**
- * helper function to massage data for table usage
+ * helper function to massage data for table usage,
+ * takes in json of expenses
+ * 
+ * input:
+ * {
+ *  expenses: [
+ *    {
+ *      "fullName": string,
+ *      "category": string,
+ *      "description": string,
+ *      "cost": num
+ *   },
+ *  ]
+ * }
 */
-export default function generateCompanyExpensesTable(){
+export default function generateCompanyExpensesTable(expenses){
   const adder = (prevVal, currVal) => prevVal + currVal;
   //get totalExpenses by filtering expenses by category
   //and adding all the costs together.

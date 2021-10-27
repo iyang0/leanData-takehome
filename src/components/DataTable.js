@@ -11,6 +11,7 @@ import { Table } from "reactstrap";
  * }
 */
 function DataTable({table}){
+  console.log(table);
   if(Object.keys(table).length<1){
     return (
       <Table>
@@ -28,7 +29,7 @@ function DataTable({table}){
 
   const tableName = Object.keys(table)[0];
   const rows = table[tableName];
-  const columnNames = Object.keys(rows[0]);
+  const columnNames = rows[0] ? Object.keys(rows[0]) : [];
 
   return (
       <Table>

@@ -8,10 +8,10 @@ import {
   Label,
   Input
 } from "reactstrap";
-/** Form for editing a user.
+/** Form for deleting a user.
  *
  * Props:
- * - editUser: call this to edit user in parent, takes in the formData
+ * - DeleteUser: call this to delete user in parent, takes in the formData
  * - users: array of user objects
  *
  * State:
@@ -26,19 +26,10 @@ function DeleteUserForm({deleteUser, users}){
 
   const handleChange = evt => {
     const { name, value } = evt.target;
-    if(name !== "user"){
-      setForm(f => ({
-        ...f,
-        [name]: value
-      }));
-    } else {
-      let user = users.find( user => value === `${user.firstName} ${user.lastName}`)
-      setForm(f => ({
-        [name]: value,
-        firstName: user.firstName,
-        lastName: user.lastName
-      }));
-    }
+    setForm(f => ({
+      ...f,
+      [name]: value
+    }));
   }
 
   const handleSubmit = evt => {
