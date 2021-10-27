@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+import errorStyle from "../helpers/errorStyle";
 import { v4 as uuid } from "uuid";
 import {
   Button,
@@ -15,7 +16,8 @@ import {
  * - users: array of user objects
  *
  * State:
- * - local state for each field on form
+ * - form: local state for each field on form
+ * - error, showErrorText: booleans for form validation
  */
 function AddExpenseForm({addExpense, users}){
   const history = useHistory();
@@ -26,8 +28,17 @@ function AddExpenseForm({addExpense, users}){
     "description": "",
     "cost": 0
   });
+  const [error, setError] = useState(false);
+  const [showErrorText, setShowErrorText] = useState(false);
 
   const handleChange = evt => {
+    const newValueIsValid = !evt.target.validity.patternMismatch;
+    if (error) {
+      if (newValueIsValid) {
+        setError(false);
+        setShowErrorText(false);
+      }
+    }
     const { name, value } = evt.target;
     if(name==="cost"){
       setForm(f => ({
@@ -47,6 +58,18 @@ function AddExpenseForm({addExpense, users}){
     addExpense(form);
     history.push("/");
   }
+
+  const handleBlur = evt => {
+    if (!error) {
+      if (evt.target.validity.patternMismatch) {
+        setError(true);
+        setShowErrorText(true);
+      }
+    }
+    if (error) {
+      setShowErrorText(false);
+    }
+  };
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -103,12 +126,19 @@ function AddExpenseForm({addExpense, users}){
       <FormGroup>
         <Label for="cost">Cost</Label>
         <Input
-          type="number"
           name="cost"
           id="cost"
+          onBlur={handleBlur}
+          pattern="^[^0]\d+"
+          style={errorStyle(error)}
           value={form.cost}
           onChange={handleChange}
         />
+        {showErrorText && (
+          <p role="alert" style={{ color: "rgb(255, 0, 0)" }}>
+            You must put in a number greater than 0
+          </p>
+        )}
       </FormGroup>
 
       <Button>
