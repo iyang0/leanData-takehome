@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { v4 as uuid } from "uuid";
 import {
   Button,
   Form,
@@ -7,37 +8,69 @@ import {
   Label,
   Input
 } from "reactstrap";
-/** Form for adding a user.
+/** Form for editing a user.
  *
  * Props:
- * - addUser: call this to add user in parent
+ * - editUser: call this to edit user in parent, takes in the formData
  *
  * State:
  * - local state for each field on form
  */
-function EditUserForm({addUser}){
+function EditUserForm({editUser, users}){
   const history = useHistory();
+  const firstUser = users[0];
   const [form, setForm] = useState({
-    firstName: "",
-    lastName: "",
+    user:`${firstUser.firstName} ${firstUser.lastName}`,
+    firstName: firstUser.firstName,
+    lastName: firstUser.lastName,
   });
 
   const handleChange = evt => {
     const { name, value } = evt.target;
-    setForm(f => ({
-      ...f,
-      [name]: value
-    }));
+    console.log(name, value)
+    if(name !== "user"){
+      setForm(f => ({
+        ...f,
+        [name]: value
+      }));
+    } else {
+      let user = users.find( user => value === `${user.firstName} ${user.lastName}`)
+      setForm(f => ({
+        [name]: value,
+        firstName: user.firstName,
+        lastName: user.lastName
+      }));
+    }
   }
 
   const handleSubmit = evt => {
     evt.preventDefault();
-    addUser(form);
+    editUser(form);
     history.push("/");
   }
 
   return (
     <Form onSubmit={handleSubmit}>
+      <FormGroup>
+        <Label for="user">User</Label>
+        <Input
+          type="select"
+          name="user"
+          id="user"
+          value={form.user}
+          onChange={handleChange}
+        >
+          {users.map(user => (
+            <option 
+              value={`${user.firstName} ${user.lastName}`}
+              key={uuid()}
+            >
+              {`${user.firstName} ${user.lastName}`}
+            </option>
+          ))}
+        </Input>
+      </FormGroup>
+
       <FormGroup>
         <Label for="firstName">First Name</Label>
         <Input

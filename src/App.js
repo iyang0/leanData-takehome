@@ -4,6 +4,7 @@ import { Route, Switch } from "react-router-dom";
 import TablesContainer from "./components/TablesContainer";
 import NavBar from "./components/NavBar";
 import AddUserForm from "./components/AddUserForm";
+import EditUserForm from "./components/EditUserForm";
 import generateCompanyExpensesTable from "./helpers/generateCompanyExpensesTable";
 import generateUsersTable from "./helpers/generateUsersTable";
 
@@ -52,6 +53,11 @@ function App() {
     setUsersTable({users});
   }
 
+  async function editUser(formData) {
+    let users = [...usersTable.users, {...formData, totalExpenses:0}];
+    setUsersTable({users});
+  }
+
   if (isLoading) {
     return (
       <div className="App">
@@ -61,7 +67,6 @@ function App() {
     );
   }
   
-  console.log(usersTable);
   return (
     <div className="App">
       <NavBar title={companyName}/>
@@ -73,6 +78,10 @@ function App() {
 
           <Route path="/addUser">
             <AddUserForm addUser={addUser} />
+          </Route>
+
+          <Route path="/editUser">
+            <EditUserForm editUser={editUser} users={usersTable.users}/>
           </Route>
           
         </Switch>
