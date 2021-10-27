@@ -12,6 +12,7 @@ import {
  *
  * Props:
  * - addExpense: call this to add user in parent
+ * - users: array of user objects
  *
  * State:
  * - local state for each field on form
