@@ -11,7 +11,7 @@ import {
 /** Form for deleting an Expense.
  *
  * Props:
- * - addExpense: call this to add user in parent
+ * - deleteExpense: call this to add user in parent
  * - expense: array of expense objects
  *
  * State:

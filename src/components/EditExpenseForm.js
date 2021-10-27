@@ -8,10 +8,10 @@ import {
   Label,
   Input
 } from "reactstrap";
-/** Form for deleting an Expense.
+/** Form for editing an Expense.
  *
  * Props:
- * - addExpense: call this to add user in parent
+ * - editExpense: call this to add user in parent
  * - expense: array of expense objects
  *
  * State:

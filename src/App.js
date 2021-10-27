@@ -48,8 +48,6 @@ function App() {
   },[companyExpenseTable, expensesTable, usersTable])
 
   async function addUser(formData) {
-    // the data from form could be added to users in database like below
-    // await addUserApi(formData);
     let users = [...usersTable.users, {...formData, totalExpenses:0}];
     setUsersTable({users});
   }
@@ -120,7 +118,24 @@ function App() {
 
   //edit expense logic
   async function editExpense(formData) {
-    console.log("hello")
+    let expenses = [...expensesTable.expenses];
+    expenses[formData.expenseIdx] = {
+      fullName: formData.fullName,
+      category: formData.category,
+      description: formData.description,
+      cost: formData.cost
+    };
+    setExpensesTable({expenses});
+
+    let users = [...usersTable.users];
+    const [firstName, lastName] = formData.fullName.split(" ");
+    const cost = formData.cost;
+    const userIdx = users.findIndex( user => (
+      user.firstName === firstName && user.lastName === lastName
+      ));
+    users[userIdx] = {firstName, lastName, totalExpenses: (users[userIdx].totalExpenses-cost)}
+    setUsersTable({users});
+    setCompanyExpenseTable(generateCompanyExpensesTable({expenses}));
   }
 
   //delete expense logic
