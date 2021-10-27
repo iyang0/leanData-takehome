@@ -6,6 +6,7 @@ import NavBar from "./components/NavBar";
 import AddUserForm from "./components/AddUserForm";
 import EditUserForm from "./components/EditUserForm";
 import DeleteUserForm from "./components/DeleteUserForm";
+import AddExpenseForm from "./components/AddExpenseForm";
 import generateCompanyExpensesTable from "./helpers/generateCompanyExpensesTable";
 import generateUsersTable from "./helpers/generateUsersTable";
 
@@ -92,6 +93,11 @@ function App() {
     setExpensesTable({expenses});
     setCompanyExpenseTable(generateCompanyExpensesTable({expenses}));
   }
+
+  //add expense logic
+  async function addExpense(formData) {
+    console.log("hello")
+  }
   
   return (
     <div className="App">
@@ -112,6 +118,12 @@ function App() {
 
           <Route path="/deleteUser">
             <DeleteUserForm deleteUser={deleteUser} users={usersTable.users}/>
+          </Route>
+
+          <Route path="/addExpense">
+            <AddExpenseForm addExpense={addExpense} 
+              users={usersTable.users} 
+              expenses={expensesTable.expenses} />
           </Route>
           
         </Switch>

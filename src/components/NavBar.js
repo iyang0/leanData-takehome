@@ -62,9 +62,11 @@ function NavBar({title}) {
                 Expenses
               </DropdownToggle>
               <DropdownMenu>
-              <DropdownItem>
-                  Add
-                </DropdownItem>
+                <NavLink to="/addExpense" className="text-decoration-none">
+                  <DropdownItem>
+                    Add
+                  </DropdownItem>
+                </NavLink>
                 <DropdownItem>
                   Edit
                 </DropdownItem>
