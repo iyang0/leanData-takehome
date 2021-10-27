@@ -121,9 +121,7 @@ function App() {
           </Route>
 
           <Route path="/addExpense">
-            <AddExpenseForm addExpense={addExpense} 
-              users={usersTable.users} 
-              expenses={expensesTable.expenses} />
+            <AddExpenseForm addExpense={addExpense} users={usersTable.users} />
           </Route>
           
         </Switch>

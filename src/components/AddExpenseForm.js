@@ -16,11 +16,12 @@ import {
  * State:
  * - local state for each field on form
  */
-function AddExpenseForm({addExpense, users, expenses}){
+function AddExpenseForm({addExpense, users}){
   const history = useHistory();
+  const categories = ["food", "travel", "health", "supplies"];
   const [form, setForm] = useState({
-    "fullName": "",
-    "category": "",
+    "fullName": users[0].firstName,
+    "category": categories[0],
     "description": "",
     "cost": 0
   });
@@ -62,23 +63,44 @@ function AddExpenseForm({addExpense, users, expenses}){
       </FormGroup>
 
       <FormGroup>
-        <Label for="user">User</Label>
+        <Label for="category">Category</Label>
         <Input
           type="select"
-          name="user"
-          id="user"
-          value={form.user}
+          name="category"
+          id="category"
+          value={form.category}
           onChange={handleChange}
         >
-          {users.map(user => (
+          {categories.map( category => (
             <option 
-              value={`${user.firstName} ${user.lastName}`}
+              value={category}
               key={uuid()}
             >
-              {`${user.firstName} ${user.lastName}`}
+              {category}
             </option>
           ))}
         </Input>
+      </FormGroup>
+
+      <FormGroup>
+        <Label for="description">Description</Label>
+        <Input
+          name="description"
+          id="description"
+          value={form.description}
+          onChange={handleChange}
+        />
+      </FormGroup>
+
+      <FormGroup>
+        <Label for="cost">Cost</Label>
+        <Input
+          type="number"
+          name="cost"
+          id="cost"
+          value={form.cost}
+          onChange={handleChange}
+        />
       </FormGroup>
 
       <Button>
