@@ -11,6 +11,21 @@ import { Table } from "reactstrap";
  * }
 */
 function DataTable({table}){
+  if(Object.keys(table).length<1){
+    return (
+      <Table>
+        <thead>
+          <tr>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+          </tr>
+        </tbody>
+      </Table>
+    )
+  }
+
   const tableName = Object.keys(table)[0];
   const rows = table[tableName];
   const columnNames = Object.keys(rows[0]);

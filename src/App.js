@@ -1,12 +1,14 @@
 import expenses from "./pseudo-backend/expenses";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Route, Switch } from "react-router-dom";
 import TablesContainer from "./components/TablesContainer";
 import NavBar from "./components/NavBar";
+import AddUserForm from "./components/AddUserForm";
 import generateCompanyExpensesTable from "./helpers/generateCompanyExpensesTable";
 import generateUsersTable from "./helpers/generateUsersTable";
 
 /**
- * App: container for all the other components
+ * App: container for all the other components, app state logic here
  * 
  * states:
  * - expensesTable: the exact same as the seed data from pseudo backend
@@ -16,19 +18,65 @@ import generateUsersTable from "./helpers/generateUsersTable";
 */
 function App() {
   const companyName="Company XYZ";
-  const [companyExpenseTable, setCompanyExpenseTable] = useState(generateCompanyExpensesTable());
-  const [usersTable, setUsersTable] = useState(generateUsersTable());
-  const [expensesTable, setExpensesTable] = useState(expenses);
+  const [isLoading, setIsLoading] = useState(true);
+  const [companyExpenseTable, setCompanyExpenseTable] = useState({});
+  const [usersTable, setUsersTable] = useState({});
+  const [expensesTable, setExpensesTable] = useState({});
   const [tableData, setTableData] = useState([
     usersTable, 
     expensesTable, 
     companyExpenseTable
-  ])
+  ]);
 
+  //load data from supposed backend on mount
+  useEffect(function() {
+    setCompanyExpenseTable(generateCompanyExpensesTable());
+    setUsersTable(generateUsersTable());
+    setExpensesTable(expenses)
+    setIsLoading(false);
+  },[])
+
+  //rerender whenever users, expenses, or companyExpenses updates
+  useEffect(function(){
+    setTableData([
+      usersTable, 
+      expensesTable, 
+      companyExpenseTable
+    ])
+  },[companyExpenseTable, expensesTable, usersTable])
+
+  async function addUser(formData) {
+    // the data from form could be added to users in database like below
+    // await addUserApi(formData);
+    let users = [...usersTable.users, {...formData, totalExpenses:0}];
+    setUsersTable({users});
+  }
+
+  if (isLoading) {
+    return (
+      <div className="App">
+      <NavBar title={companyName}/>
+      <p>Loading...</p>
+    </div>
+    );
+  }
+  
+  console.log(usersTable);
   return (
     <div className="App">
-      <NavBar/>
-      <TablesContainer tables={tableData} title={companyName}/>
+      <NavBar title={companyName}/>
+      <main>
+        <Switch>
+          <Route exact path="/">
+            <TablesContainer tables={tableData} title={companyName}/>
+          </Route>
+
+          <Route path="/addUser">
+            <AddUserForm addUser={addUser} />
+          </Route>
+          
+        </Switch>
+      </main>
     </div>
   );
 }

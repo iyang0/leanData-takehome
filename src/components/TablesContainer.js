@@ -1,5 +1,6 @@
 import { Container, Row, Col } from "reactstrap";
 import DataTable from "./DataTable";
+import { v4 as uuid } from "uuid";
 
 /**
  * Company Expenses: container that displays tables
@@ -16,7 +17,7 @@ function TablesContainer({tables, title}){
         {title}
       </h1>
         {tables.map( table => (
-          <Col key={Object.keys(table)[0]}>
+          <Col key={uuid()}>
             <h3 className="text-center">{Object.keys(table)[0]}</h3>
             <DataTable table={table}/>
           </Col>
