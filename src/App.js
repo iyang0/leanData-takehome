@@ -16,7 +16,7 @@ import generateUsersTable from "./helpers/generateUsersTable";
  * 
  * I am realizing that I should have used IDs even if not asked for in the pseudo backend data 
  * and just not shown that on tables as that would have made it a lot easier and performant
- * than using find and indexes. A bit too late for me to refactor in time though.
+ * than using find and getting the indexes. A bit too late for me to refactor in time though.
  * 
  * states:
  * - expensesTable: the exact same as the seed data from pseudo backend
@@ -65,13 +65,13 @@ function App() {
     users[userIdx].lastName = formData.lastName;
     setUsersTable({users});
 
-    let expensesNew = [...expensesTable.expenses];
-    expensesNew.forEach( e => {
+    let expenses = [...expensesTable.expenses];
+    expenses.forEach( e => {
       if(e.fullName === formData.user) {
         e.fullName = `${formData.firstName} ${formData.lastName}`
       }
     });
-    setExpensesTable({expenses: expensesNew});
+    setExpensesTable({expenses});
   }
 
   //delete user logic
@@ -84,25 +84,25 @@ function App() {
     users.splice(userIdx,1);
     setUsersTable({users});
     
-    let expensesNew = [...expensesTable.expenses];
+    let expenses = [...expensesTable.expenses];
     let delIdx = [];
     //I know this is horrible O(n^2) runtime, I just want this to work first
-    expensesNew.forEach( (e, idx) => {
+    expenses.forEach( (e, idx) => {
       if(e.fullName === formData.user) {
         delIdx.push(idx);
       }
     });
     for(let i = delIdx.length-1; i>=0; i--){
-      expensesNew.splice(delIdx[i],1);
+      expenses.splice(delIdx[i],1);
     }
-    setExpensesTable({expensesNew});
-    setCompanyExpenseTable(generateCompanyExpensesTable({expensesNew}));
+    setExpensesTable({expenses});
+    setCompanyExpenseTable(generateCompanyExpensesTable({expenses}));
   }
 
   //add expense logic
   async function addExpense(formData) {
-    let expensesNew = [...expensesTable.expenses, {...formData}];
-    setExpensesTable({expenses: expensesNew});
+    let expenses = [...expensesTable.expenses, {...formData}];
+    setExpensesTable({expenses});
     
     let [firstName, lastName] = formData.fullName.split(" ");
     let users = [...usersTable.users];
@@ -114,12 +114,25 @@ function App() {
       lastName, 
       totalExpenses: (users[userIdx].totalExpenses+formData.cost)}
     setUsersTable({users});
-    setCompanyExpenseTable(generateCompanyExpensesTable({expenses: expensesNew}));
+    setCompanyExpenseTable(generateCompanyExpensesTable({expenses}));
   }
 
   //delete expense logic
   async function deleteExpense(formData) {
-    console.log("hello")
+    const expenseIdx = formData.expenseIdx;
+    let expenses = [...expensesTable.expenses];
+    const [firstName, lastName] = expenses[expenseIdx].fullName.split(" ");
+    const cost = expenses[expenseIdx].cost;
+    expenses.splice(expenseIdx,1);
+    setExpensesTable({expenses});
+
+    let users = [...usersTable.users];
+    const userIdx = users.findIndex( user => (
+      user.firstName === firstName && user.lastName === lastName
+      ));
+    users[userIdx] = {firstName, lastName, totalExpenses: (users[userIdx].totalExpenses-cost)}
+    setUsersTable({users});
+    setCompanyExpenseTable(generateCompanyExpensesTable({expenses}));
   }
   
   return (

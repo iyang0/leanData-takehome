@@ -12,12 +12,12 @@ import {
  *
  * Props:
  * - addExpense: call this to add user in parent
- * - users: array of user objects
+ * - expense: array of expense objects
  *
  * State:
  * - local state for each field on form
  */
-function DeleteExpenseForm({addExpense, expenses}){
+function DeleteExpenseForm({deleteExpense, expenses}){
   const history = useHistory();
   const [form, setForm] = useState({
     "expenseIdx": 0,
@@ -34,17 +34,16 @@ function DeleteExpenseForm({addExpense, expenses}){
 
   const handleSubmit = evt => {
     evt.preventDefault();
-    addExpense(form);
+    deleteExpense(form);
     history.push("/");
   }
 
-  console.log(form);
   return (
     <Form onSubmit={handleSubmit}>
       <FormGroup tag="fieldset">
       {expenses.map( (expense, idx) => (
         <div key={uuid()}>
-          <Label for="expenseIdx">{`${expense.fullName}_${expense.category}_${expense.description}_${expenses[0].cost}`}</Label>
+          <Label for="expenseIdx">{`${expense.fullName}_${expense.category}_${expense.description}_${expense.cost}`}</Label>
           <Input
             id={idx}
             type="radio"
