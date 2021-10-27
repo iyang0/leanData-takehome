@@ -16,10 +16,7 @@ import generateUsersTable from "./helpers/generateUsersTable";
 */
 function App() {
   const companyName="Company XYZ";
-  
-  //get totalExpenses by filtering expenses by category, and adding all the costs together.
   const [companyExpenseTable, setCompanyExpenseTable] = useState(generateCompanyExpensesTable());
-  //users need to map over each user and add totalExpense by user
   const [usersTable, setUsersTable] = useState(generateUsersTable());
   const [expensesTable, setExpensesTable] = useState(expenses);
   const [tableData, setTableData] = useState([

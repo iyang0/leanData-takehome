@@ -9,7 +9,7 @@ import expenses from "../pseudo-backend/expenses";
 */
 export default function generateUsersTable(){
   const adder = (prevVal, currVal) => prevVal + currVal;
-  
+  //users need to map over each user and add totalExpense by user
   return (
     {
       users: users.users.map( user => ({...user, 

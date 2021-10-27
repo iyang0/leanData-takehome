@@ -5,7 +5,8 @@ import expenses from "../pseudo-backend/expenses";
 */
 export default function generateCompanyExpensesTable(){
   const adder = (prevVal, currVal) => prevVal + currVal;
-  
+  //get totalExpenses by filtering expenses by category
+  //and adding all the costs together.
   return ({
     companyExpenses: [
       {
