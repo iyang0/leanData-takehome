@@ -46,9 +46,11 @@ function NavBar({title}) {
                     Edit
                   </DropdownItem>
                 </NavLink>
-                <DropdownItem>
-                  Delete
-                </DropdownItem>
+                <NavLink to="/deleteUser" className="text-decoration-none">
+                  <DropdownItem>
+                    Delete
+                  </DropdownItem>
+                </NavLink>
               </DropdownMenu>
             </ButtonDropdown>
           </Dropdown>

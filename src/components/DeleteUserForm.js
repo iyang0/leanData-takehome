@@ -17,13 +17,11 @@ import {
  * State:
  * - local state for each field on form
  */
-function EditUserForm({editUser, users}){
+function DeleteUserForm({deleteUser, users}){
   const history = useHistory();
   const firstUser = users[0];
   const [form, setForm] = useState({
-    user:`${firstUser.firstName} ${firstUser.lastName}`,
-    firstName: firstUser.firstName,
-    lastName: firstUser.lastName,
+    user:`${firstUser.firstName} ${firstUser.lastName}`
   });
 
   const handleChange = evt => {
@@ -45,7 +43,7 @@ function EditUserForm({editUser, users}){
 
   const handleSubmit = evt => {
     evt.preventDefault();
-    editUser(form);
+    deleteUser(form);
     history.push("/");
   }
 
@@ -71,31 +69,11 @@ function EditUserForm({editUser, users}){
         </Input>
       </FormGroup>
 
-      <FormGroup>
-        <Label for="firstName">First Name</Label>
-        <Input
-          name="firstName"
-          id="firstName"
-          value={form.firstName}
-          onChange={handleChange}
-        />
-      </FormGroup>
-
-      <FormGroup>
-        <Label for="lastName">Last Name</Label>
-        <Input
-          name="lastName"
-          id="lastName"
-          value={form.lastName}
-          onChange={handleChange}
-        />
-      </FormGroup>
-
       <Button>
-        Edit User
+        Delete User
       </Button>
     </Form>
   )
 }
 
-export default EditUserForm;
+export default DeleteUserForm;

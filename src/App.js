@@ -5,6 +5,7 @@ import TablesContainer from "./components/TablesContainer";
 import NavBar from "./components/NavBar";
 import AddUserForm from "./components/AddUserForm";
 import EditUserForm from "./components/EditUserForm";
+import DeleteUserForm from "./components/DeleteUserForm";
 import generateCompanyExpensesTable from "./helpers/generateCompanyExpensesTable";
 import generateUsersTable from "./helpers/generateUsersTable";
 
@@ -19,23 +20,14 @@ import generateUsersTable from "./helpers/generateUsersTable";
 */
 function App() {
   const companyName="Company XYZ";
-  const [isLoading, setIsLoading] = useState(true);
-  const [companyExpenseTable, setCompanyExpenseTable] = useState({});
-  const [usersTable, setUsersTable] = useState({});
-  const [expensesTable, setExpensesTable] = useState({});
+  const [companyExpenseTable, setCompanyExpenseTable] = useState(generateCompanyExpensesTable());
+  const [usersTable, setUsersTable] = useState(generateUsersTable());
+  const [expensesTable, setExpensesTable] = useState(expenses);
   const [tableData, setTableData] = useState([
     usersTable, 
     expensesTable, 
     companyExpenseTable
   ]);
-
-  //load data from supposed backend on mount
-  useEffect(function() {
-    setCompanyExpenseTable(generateCompanyExpensesTable());
-    setUsersTable(generateUsersTable());
-    setExpensesTable(expenses)
-    setIsLoading(false);
-  },[])
 
   //rerender whenever users, expenses, or companyExpenses updates
   useEffect(function(){
@@ -53,31 +45,30 @@ function App() {
     setUsersTable({users});
   }
 
+  //edit user logic
   async function editUser(formData) {
     let oldName = formData.user;
     let [oldFirstName, oldLastName] = oldName.split(" ");
     let users = [...usersTable.users];
-    let oldIdx = users.findIndex( user => (
+    let userIdx = users.findIndex( user => (
         user.firstName === oldFirstName && user.lastName === oldLastName
       ));
-    users[oldIdx].firstName = formData.firstName;
-    users[oldIdx].lastName = formData.lastName;
+    users[userIdx].firstName = formData.firstName;
+    users[userIdx].lastName = formData.lastName;
     setUsersTable({users});
 
     let expenses = [...expensesTable.expenses];
     expenses.forEach( e => {
-      if(e.fullName === formData.user) e.fullName = `${formData.firstName} ${formData.lastName}`
+      if(e.fullName === formData.user) {
+        e.fullName = `${formData.firstName} ${formData.lastName}`
+      }
     });
-    setExpensesTable({expenses})
+    setExpensesTable({expenses});
   }
 
-  if (isLoading) {
-    return (
-      <div className="App">
-      <NavBar title={companyName}/>
-      <p>Loading...</p>
-    </div>
-    );
+  //delete user logic
+  async function deleteUser(formData) {
+    console.log("in delete user");
   }
   
   return (
@@ -95,6 +86,10 @@ function App() {
 
           <Route path="/editUser">
             <EditUserForm editUser={editUser} users={usersTable.users}/>
+          </Route>
+
+          <Route path="/deleteUser">
+            <DeleteUserForm deleteUser={deleteUser} users={usersTable.users}/>
           </Route>
           
         </Switch>
