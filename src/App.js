@@ -7,11 +7,16 @@ import AddUserForm from "./components/AddUserForm";
 import EditUserForm from "./components/EditUserForm";
 import DeleteUserForm from "./components/DeleteUserForm";
 import AddExpenseForm from "./components/AddExpenseForm";
+import DeleteExpenseForm from "./components/DeleteExpenseForm";
 import generateCompanyExpensesTable from "./helpers/generateCompanyExpensesTable";
 import generateUsersTable from "./helpers/generateUsersTable";
 
 /**
  * App: container for all the other components, app state logic here
+ * 
+ * I am realizing that I should have used IDs even if not asked for in the pseudo backend data 
+ * and just not shown that on tables as that would have made it a lot easier and performant
+ * than using find and indexes. A bit too late for me to refactor in time though.
  * 
  * states:
  * - expensesTable: the exact same as the seed data from pseudo backend
@@ -111,6 +116,11 @@ function App() {
     setUsersTable({users});
     setCompanyExpenseTable(generateCompanyExpensesTable({expenses: expensesNew}));
   }
+
+  //delete expense logic
+  async function deleteExpense(formData) {
+    console.log("hello")
+  }
   
   return (
     <div className="App">
@@ -137,6 +147,10 @@ function App() {
             <AddExpenseForm addExpense={addExpense} users={usersTable.users} />
           </Route>
           
+          <Route path="/deleteExpense">
+            <DeleteExpenseForm deleteExpense={deleteExpense} expenses={expensesTable.expenses} />
+          </Route>
+
         </Switch>
       </main>
     </div>
