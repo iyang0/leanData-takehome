@@ -54,8 +54,21 @@ function App() {
   }
 
   async function editUser(formData) {
-    let users = [...usersTable.users, {...formData, totalExpenses:0}];
+    let oldName = formData.user;
+    let [oldFirstName, oldLastName] = oldName.split(" ");
+    let users = [...usersTable.users];
+    let oldIdx = users.findIndex( user => (
+        user.firstName === oldFirstName && user.lastName === oldLastName
+      ));
+    users[oldIdx].firstName = formData.firstName;
+    users[oldIdx].lastName = formData.lastName;
     setUsersTable({users});
+
+    let expenses = [...expensesTable.expenses];
+    expenses.forEach( e => {
+      if(e.fullName === formData.user) e.fullName = `${formData.firstName} ${formData.lastName}`
+    });
+    setExpensesTable({expenses})
   }
 
   if (isLoading) {

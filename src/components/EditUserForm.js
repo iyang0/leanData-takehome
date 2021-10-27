@@ -27,7 +27,6 @@ function EditUserForm({editUser, users}){
 
   const handleChange = evt => {
     const { name, value } = evt.target;
-    console.log(name, value)
     if(name !== "user"){
       setForm(f => ({
         ...f,
