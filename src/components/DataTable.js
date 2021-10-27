@@ -11,7 +11,6 @@ import { Table } from "reactstrap";
  * }
 */
 function DataTable({table}){
-  console.log(table);
   if(Object.keys(table).length<1){
     return (
       <Table>
