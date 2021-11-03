@@ -119,6 +119,7 @@ function App() {
   //edit expense logic
   async function editExpense(formData) {
     let expenses = [...expensesTable.expenses];
+    const oldCost = expenses[formData.expenseIdx].cost;
     expenses[formData.expenseIdx] = {
       fullName: formData.fullName,
       category: formData.category,
@@ -127,13 +128,14 @@ function App() {
     };
     setExpensesTable({expenses});
 
+    console.log(oldCost);
     let users = [...usersTable.users];
     const [firstName, lastName] = formData.fullName.split(" ");
     const cost = formData.cost;
     const userIdx = users.findIndex( user => (
       user.firstName === firstName && user.lastName === lastName
       ));
-    users[userIdx] = {firstName, lastName, totalExpenses: (users[userIdx].totalExpenses-cost)}
+    users[userIdx] = {firstName, lastName, totalExpenses: (users[userIdx].totalExpenses-oldCost+cost)}
     setUsersTable({users});
     setCompanyExpenseTable(generateCompanyExpensesTable({expenses}));
   }
